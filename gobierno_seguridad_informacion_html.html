@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gobierno de Seguridad de la Información</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --dark: #0f172a;
+      --dark-2: #334155;
+      --blue-bg: #eff6ff;
+      --blue: #1d4ed8;
+      --green-bg: #ecfdf5;
+      --green: #047857;
+      --amber-bg: #fffbeb;
+      --amber: #b45309;
+      --purple-bg: #faf5ff;
+      --purple: #7e22ce;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero {
+      background: linear-gradient(90deg, var(--dark), var(--dark-2));
+      color: #fff;
+      border-radius: 28px;
+      padding: 36px;
+      box-shadow: var(--shadow);
+      margin-bottom: 28px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: 44px;
+      margin: 0 0 14px 0;
+      line-height: 1.1;
+    }
+
+    h2 {
+      font-size: 32px;
+      margin: 0;
+    }
+
+    h3 {
+      font-size: 22px;
+      margin: 0;
+    }
+
+    h4 {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    p.hero-text {
+      margin: 0;
+      max-width: 900px;
+      color: #dbeafe;
+      font-size: 18px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .grid-roles {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .card-link {
+      text-decoration: none;
+      color: inherit;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .card-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+    }
+
+    .section {
+      margin-bottom: 32px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+    }
+
+    .tag.blue { background: var(--blue-bg); color: var(--blue); border-color: #bfdbfe; }
+    .tag.green { background: var(--green-bg); color: var(--green); border-color: #a7f3d0; }
+    .tag.amber { background: var(--amber-bg); color: var(--amber); border-color: #fde68a; }
+    .tag.purple { background: var(--purple-bg); color: var(--purple); border-color: #e9d5ff; }
+    .tag.gray { background: #f1f5f9; color: #334155; border-color: #cbd5e1; }
+
+    details.card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    details > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    details > summary::-webkit-details-marker { display: none; }
+
+    .summary-meta {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .details-body {
+      padding: 0 20px 20px 20px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .subcard {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .subcard p {
+      margin: 10px 0 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    ul.clean {
+      margin: 12px 0 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    ul.clean li {
+      display: flex;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .bullet {
+      color: #059669;
+      font-weight: 700;
+      flex: 0 0 auto;
+    }
+
+    .arrow {
+      color: #4f46e5;
+      font-weight: 700;
+      flex: 0 0 auto;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+      margin-top: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #334155;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .small-text {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .role-card .example,
+    .framework-example {
+      margin-top: 14px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 1100px) {
+      .grid-4, .grid-roles { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 16px; }
+      .hero { padding: 24px; }
+      h1 { font-size: 32px; }
+      h2 { font-size: 26px; }
+      .grid-4, .grid-2, .grid-roles { grid-template-columns: 1fr; }
+      table { min-width: 640px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <span class="pill">Gobierno de Seguridad de la Información</span>
+      <h1>Página interactiva de políticas, marcos, riesgos y roles</h1>
+      <p class="hero-text">
+        Recurso didactico sobre políticas de seguridad, marcos de referencia,
+        gestión de riesgos y la interacción entre CISO, SOC, TI y Auditoría.
+      </p>
+    </header>
+
+    <section class="grid-4">
+      <a class="card card-link" href="#politicas">
+        <h3>Políticas</h3>
+        <p class="small-text">Ejemplos estructurados y expandibles.</p>
+      </a>
+      <a class="card card-link" href="#frameworks">
+        <h3>Estándares</h3>
+        <p class="small-text">ISO 27001, NIST CSF 2.0 y gestión de riesgos.</p>
+      </a>
+      <a class="card card-link" href="#riesgos">
+        <h3>Riesgos</h3>
+        <p class="small-text">Ejemplos con probabilidad, impacto y tratamiento.</p>
+      </a>
+      <a class="card card-link" href="#pilares">
+        <h3>Roles</h3>
+        <p class="small-text">CISO, SOC, TI y Auditoría / GRC.</p>
+      </a>
+    </section>
+
+    <section id="politicas" class="section">
+      <div class="section-head">
+        <h2>Políticas de ejemplo en formato estructurado</h2>
+        <span class="tag blue">Formato institucional resumido y expandible</span>
+      </div>
+
+      <details class="card">
+        <summary>
+          <div>
+            <h3>Política de Seguridad de la Información</h3>
+            <div class="summary-meta"><strong>Versión:</strong> 1.0 | <strong>Fecha:</strong> Abril 2026</div>
+            <div class="summary-meta"><strong>Responsable:</strong> Departamento de Seguridad de la Información / CISO</div>
+            <div class="summary-meta"><strong>Alcance:</strong> Todos los colaboradores, contratistas, sistemas, procesos y activos de información de la organización.</div>
+          </div>
+          <span>⌄</span>
+        </summary>
+        <div class="details-body">
+          <div class="subcard">
+            <h4>1. Objetivo</h4>
+            <p>Establecer el marco formal para proteger la confidencialidad, integridad, disponibilidad, autenticidad y trazabilidad de la información durante todo su ciclo de vida.</p>
+          </div>
+          <div class="subcard">
+            <h4>2. Alcance</h4>
+            <p>Aplica a información digital, física, verbal y almacenada en terceros; sistemas on-premise y cloud; procesos de negocio, usuarios internos, proveedores y terceros con acceso autorizado.</p>
+          </div>
+          <div class="subcard">
+            <h4>3. Principios base</h4>
+            <ul class="clean">
+              <li><span class="bullet">✓</span><span>Clasificación de la información según criticidad y sensibilidad.</span></li>
+              <li><span class="bullet">✓</span><span>Acceso bajo principio de mínimo privilegio y necesidad de conocer.</span></li>
+              <li><span class="bullet">✓</span><span>Uso obligatorio de medios autorizados para almacenamiento, intercambio y transmisión.</span></li>
+              <li><span class="bullet">✓</span><span>Protección diferenciada según clasificación, impacto y requisitos regulatorios.</span></li>
+              <li><span class="bullet">✓</span><span>Reporte inmediato de incidentes o sospechas de compromiso de información.</span></li>
+            </ul>
+          </div>
+          <div class="subcard">
+            <h4>4. Clasificación sugerida</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Nivel</th><th>Descripción</th><th>Ejemplo de control</th></tr></thead>
+                <tbody>
+                  <tr><td>Pública</td><td>Información autorizada para divulgación general</td><td>Puede publicarse en sitio web institucional</td></tr>
+                  <tr><td>Uso Interno</td><td>Información operativa no destinada al público</td><td>Compartir solo por canales corporativos</td></tr>
+                  <tr><td>Confidencial</td><td>Información sensible para operación o cumplimiento</td><td>Cifrado y acceso restringido</td></tr>
+                  <tr><td>Restringida</td><td>Información crítica cuyo compromiso genera alto impacto</td><td>Aprobación formal, monitoreo y controles reforzados</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="subcard">
+            <h4>5. Responsabilidades</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Rol</th><th>Responsabilidad</th></tr></thead>
+                <tbody>
+                  <tr><td>CISO / Seguridad</td><td>Definir lineamientos, supervisar cumplimiento y gestionar excepciones</td></tr>
+                  <tr><td>Dueño del activo</td><td>Clasificar la información y aprobar accesos</td></tr>
+                  <tr><td>TI</td><td>Implementar controles técnicos y resguardar disponibilidad</td></tr>
+                  <tr><td>Usuarios</td><td>Usar la información solo para fines autorizados y reportar incidentes</td></tr>
+                  <tr><td>Auditoría</td><td>Verificar diseño, evidencia y efectividad de controles</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="subcard">
+            <h4>6. Ejemplo aplicado</h4>
+            <p>El área financiera genera reportes de nómina y conciliación. La información se clasifica como Confidencial, se almacena en repositorio corporativo con permisos restringidos, se comparte solo mediante canal cifrado y cada trimestre se revisan accesos y trazabilidad de uso.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div>
+            <h3>Política de Contraseñas y Autenticación</h3>
+            <div class="summary-meta"><strong>Versión:</strong> 1.0 | <strong>Fecha:</strong> Abril 2026</div>
+            <div class="summary-meta"><strong>Responsable:</strong> Departamento de Seguridad de la Información / CISO</div>
+            <div class="summary-meta"><strong>Alcance:</strong> Todas las cuentas de usuario, cuentas privilegiadas, cuentas de servicio, accesos remotos, aplicaciones críticas y mecanismos de autenticación corporativos.</div>
+          </div>
+          <span>⌄</span>
+        </summary>
+        <div class="details-body">
+          <div class="subcard"><h4>1. Objetivo</h4><p>Reducir el riesgo de acceso no autorizado mediante contraseñas robustas, autenticación multifactor, controles de bloqueo, recuperación segura de cuenta y gestión adecuada de credenciales.</p></div>
+          <div class="subcard"><h4>2. Alcance</h4><p>Aplica a usuarios internos, proveedores, contratistas, administradores, VPN, correo, aplicaciones de negocio, sistemas críticos y consolas de administración.</p></div>
+          <div class="subcard">
+            <h4>3. Reglas mínimas</h4>
+            <ul class="clean">
+              <li><span class="bullet">✓</span><span>Uso de frases de paso largas y únicas, no reutilizadas en servicios externos.</span></li>
+              <li><span class="bullet">✓</span><span>MFA obligatorio para correo, VPN, ZTNA, consolas administrativas y aplicaciones críticas.</span></li>
+              <li><span class="bullet">✓</span><span>Prohibido compartir contraseñas, guardarlas en texto plano o escribirlas en medios inseguros.</span></li>
+              <li><span class="bullet">✓</span><span>Las cuentas privilegiadas deben tener monitoreo reforzado y, cuando sea posible, acceso temporal o just-in-time.</span></li>
+              <li><span class="bullet">✓</span><span>Las cuentas de servicio no deben usar secretos embebidos en scripts o repositorios.</span></li>
+            </ul>
+          </div>
+          <div class="subcard">
+            <h4>4. Controles sugeridos</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Control</th><th>Aplicación recomendada</th></tr></thead>
+                <tbody>
+                  <tr><td>Longitud</td><td>14 caracteres o más para usuarios; 16 o más para cuentas privilegiadas</td></tr>
+                  <tr><td>Bloqueo</td><td>Bloqueo temporal tras 5 intentos fallidos</td></tr>
+                  <tr><td>MFA</td><td>Obligatorio en accesos críticos y remotos</td></tr>
+                  <tr><td>Recuperación</td><td>Verificación de identidad y registro auditable</td></tr>
+                  <tr><td>Rotación</td><td>Según criticidad y tipo de cuenta, especialmente para cuentas de servicio</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="subcard">
+            <h4>5. Responsabilidades</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Rol</th><th>Responsabilidad</th></tr></thead>
+                <tbody>
+                  <tr><td>Seguridad</td><td>Definir estándares, revisar excepciones y monitorear uso indebido</td></tr>
+                  <tr><td>TI / IAM</td><td>Configurar MFA, bloqueo, recuperación y políticas técnicas</td></tr>
+                  <tr><td>Usuarios</td><td>Custodiar credenciales y reportar sospechas de compromiso</td></tr>
+                  <tr><td>Auditoría</td><td>Verificar evidencia de cumplimiento y control de accesos</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="subcard"><h4>6. Ejemplo aplicado</h4><p>Para ingresar al portal financiero interno, el usuario debe autenticarse con una frase de paso corporativa y MFA. Tras cinco intentos fallidos la cuenta se bloquea, se genera alerta al SOC y el restablecimiento exige validación formal de identidad.</p></div>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div>
+            <h3>Política de Backup y Recuperación</h3>
+            <div class="summary-meta"><strong>Versión:</strong> 1.0 | <strong>Fecha:</strong> Abril 2026</div>
+            <div class="summary-meta"><strong>Responsable:</strong> Departamento de Seguridad de la Información / CISO</div>
+            <div class="summary-meta"><strong>Alcance:</strong> Todos los colaboradores, contratistas, sistemas y dispositivos de la organización.</div>
+          </div>
+          <span>⌄</span>
+        </summary>
+        <div class="details-body">
+          <div class="subcard"><h4>1. Objetivo</h4><p>Garantizar la disponibilidad, integridad y recuperabilidad de la información crítica ante fallos de hardware, errores humanos, ransomware, desastres o eliminación accidental o maliciosa de datos.</p></div>
+          <div class="subcard">
+            <h4>2. Alcance</h4>
+            <ul class="clean">
+              <li><span class="bullet">✓</span><span>Servidores físicos y virtuales</span></li>
+              <li><span class="bullet">✓</span><span>Bases de datos</span></li>
+              <li><span class="bullet">✓</span><span>Sistemas de archivos compartidos</span></li>
+              <li><span class="bullet">✓</span><span>Aplicaciones críticas (ERP, CRM, correo electrónico)</span></li>
+              <li><span class="bullet">✓</span><span>Repositorios de código y configuraciones de infraestructura</span></li>
+            </ul>
+          </div>
+          <div class="subcard">
+            <h4>3. Clasificación de datos según criticidad</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Nivel</th><th>Descripción</th><th>Ejemplos</th><th>RPO</th><th>RTO</th></tr></thead>
+                <tbody>
+                  <tr><td>Crítico</td><td>Datos esenciales para la operación</td><td>BD de clientes, transacciones, credenciales</td><td>≤ 15 min</td><td>≤ 4 horas</td></tr>
+                  <tr><td>Importante</td><td>Datos relevantes con cierta tolerancia</td><td>Documentación, correos, configuraciones</td><td>≤ 4 horas</td><td>≤ 24 horas</td></tr>
+                  <tr><td>Normal</td><td>Datos operativos no críticos</td><td>Logs históricos, archivos temporales</td><td>≤ 24 horas</td><td>≤ 72 horas</td></tr>
+                  <tr><td>Bajo</td><td>Datos fácilmente reemplazables</td><td>Copias de prueba, borradores</td><td>≤ 7 días</td><td>Sin requisito</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="subcard">
+            <h4>4. Regla 3-2-1-1</h4>
+            <ul class="clean">
+              <li><span class="bullet">✓</span><span>3 copias: original + 2 respaldos</span></li>
+              <li><span class="bullet">✓</span><span>2 soportes: medios distintos</span></li>
+              <li><span class="bullet">✓</span><span>1 copia fuera del sitio</span></li>
+              <li><span class="bullet">✓</span><span>1 copia offline o inmutable para reducir impacto de ransomware</span></li>
+            </ul>
+          </div>
+          <div class="subcard">
+            <h4>5. Pruebas de restauración</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Tipo de dato</th><th>Frecuencia</th><th>Registro requerido</th></tr></thead>
+                <tbody>
+                  <tr><td>Crítico</td><td>Mensual</td><td>Acta de prueba</td></tr>
+                  <tr><td>Importante</td><td>Trimestral</td><td>Acta de prueba</td></tr>
+                  <tr><td>Normal</td><td>Semestral</td><td>Acta de prueba</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="subcard">
+            <h4>6. Responsabilidades</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Rol</th><th>Responsabilidad</th></tr></thead>
+                <tbody>
+                  <tr><td>CISO / Seguridad</td><td>Definir políticas y auditar cumplimiento</td></tr>
+                  <tr><td>Administrador de sistemas</td><td>Configurar y monitorear backups</td></tr>
+                  <tr><td>Responsable de datos</td><td>Validar integridad de datos críticos</td></tr>
+                  <tr><td>Auditor interno</td><td>Verificar logs y pruebas de restauración</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="subcard"><h4>7. Ejemplo aplicado</h4><p>El ERP corporativo tiene backup incremental cada 4 horas, full semanal y copia cifrada fuera del sitio. Cada mes se realiza una restauración controlada en ambiente de prueba para validar RPO, RTO e integridad.</p></div>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div>
+            <h3>Política de Acceso Remoto</h3>
+            <div class="summary-meta"><strong>Versión:</strong> 1.0 | <strong>Fecha:</strong> Abril 2026</div>
+            <div class="summary-meta"><strong>Responsable:</strong> Departamento de Seguridad de la Información / CISO</div>
+            <div class="summary-meta"><strong>Alcance:</strong> Empleados remotos, teletrabajadores, contratistas, consultores externos, soporte técnico remoto y proveedores con acceso a recursos internos.</div>
+          </div>
+          <span>⌄</span>
+        </summary>
+        <div class="details-body">
+          <div class="subcard"><h4>1. Objetivo</h4><p>Establecer controles de seguridad para el acceso remoto a los recursos de la organización, protegiendo la confidencialidad, integridad y disponibilidad de la información.</p></div>
+          <div class="subcard">
+            <h4>2. Principios Zero Trust</h4>
+            <ul class="clean">
+              <li><span class="bullet">✓</span><span>Nunca confiar, siempre verificar</span></li>
+              <li><span class="bullet">✓</span><span>Verificación explícita de identidad y autorización</span></li>
+              <li><span class="bullet">✓</span><span>Acceso mínimo necesario según rol y contexto</span></li>
+              <li><span class="bullet">✓</span><span>Asumir brecha: la red interna no debe asumirse confiable</span></li>
+            </ul>
+          </div>
+          <div class="subcard">
+            <h4>3. Métodos de acceso remoto permitidos</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Método</th><th>Permitido</th><th>Requiere MFA</th><th>Requiere VPN</th><th>Casos de uso</th></tr></thead>
+                <tbody>
+                  <tr><td>VPN Corporativa</td><td>Sí</td><td>Obligatorio</td><td>N/A</td><td>Acceso general a red interna</td></tr>
+                  <tr><td>ZTNA (SASE)</td><td>Sí</td><td>Obligatorio</td><td>No</td><td>Alternativa moderna a VPN</td></tr>
+                  <tr><td>RDP directo</td><td>No</td><td>N/A</td><td>N/A</td><td>Prohibido por seguridad</td></tr>
+                  <tr><td>TeamViewer/AnyDesk</td><td>Excepciones</td><td>Obligatorio</td><td>Sí</td><td>Soporte técnico aprobado</td></tr>
+                  <tr><td>Bastion / Jump Server</td><td>Sí</td><td>Obligatorio</td><td>Sí</td><td>Acceso a servidores críticos</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="subcard">
+            <h4>4. Requisitos obligatorios</h4>
+            <ul class="clean">
+              <li><span class="bullet">✓</span><span>MFA obligatorio en todos los accesos remotos</span></li>
+              <li><span class="bullet">✓</span><span>Equipo corporativo o BYOD controlado con EDR, parches y cifrado de disco</span></li>
+              <li><span class="bullet">✓</span><span>Conexión cifrada obligatoria</span></li>
+              <li><span class="bullet">✓</span><span>Segmentación de red y trazabilidad del tráfico</span></li>
+              <li><span class="bullet">✓</span><span>Sesiones administrativas remotas registradas y, cuando aplique, grabadas</span></li>
+            </ul>
+          </div>
+          <div class="subcard">
+            <h4>5. Control de acceso por rol</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Rol</th><th>Acceso permitido</th><th>Restricciones adicionales</th></tr></thead>
+                <tbody>
+                  <tr><td>Usuario estándar</td><td>Correo, Office 365, aplicaciones web</td><td>No acceso directo a servidores</td></tr>
+                  <tr><td>Desarrollador</td><td>Repositorios, entornos dev/staging</td><td>No acceso a producción</td></tr>
+                  <tr><td>Administrador de sistemas</td><td>Servidores bajo su responsabilidad</td><td>Sesiones grabadas, horario controlado</td></tr>
+                  <tr><td>Soporte técnico</td><td>Equipos de usuarios</td><td>Sesiones grabadas y con consentimiento</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="subcard">
+            <h4>6. Prohibiciones explícitas</h4>
+            <ul class="clean">
+              <li><span class="bullet">✓</span><span>Compartir credenciales de acceso remoto</span></li>
+              <li><span class="bullet">✓</span><span>Conectarse desde equipos personales sin autorización expresa</span></li>
+              <li><span class="bullet">✓</span><span>Deshabilitar MFA por comodidad</span></li>
+              <li><span class="bullet">✓</span><span>Usar redes WiFi públicas sin VPN activa</span></li>
+              <li><span class="bullet">✓</span><span>Conectar dispositivos USB no autorizados durante sesión remota</span></li>
+            </ul>
+          </div>
+          <div class="subcard"><h4>7. Ejemplo aplicado</h4><p>Un proveedor necesita revisar un servidor de aplicaciones. TI habilita acceso por VPN temporal, MFA, cuenta limitada y ventana de 2 horas. El SOC monitorea la sesión y Auditoría conserva la trazabilidad.</p></div>
+        </div>
+      </details>
+    </section>
+
+    <section id="frameworks" class="section">
+      <div class="section-head">
+        <h2>Estándares y ejemplos aplicados</h2>
+        <span class="tag green">Adecuado a formato docente y ejecutivo</span>
+      </div>
+
+      <details class="card">
+        <summary>
+          <div>
+            <h3>ISO 27001:2022 - Ejemplos aplicados</h3>
+            <p class="small-text">Ejemplos prácticos para mostrar cómo un SGSI aterriza en políticas, procedimientos, evidencias y controles operativos.</p>
+          </div>
+          <span>⌄</span>
+        </summary>
+        <div class="details-body">
+          <div class="subcard">
+            <h4>Estructura del SGSI en 4 niveles</h4>
+            <ul class="clean">
+              <li><span class="bullet">✓</span><span>Nivel 1: Políticas de alta dirección (seguridad de la información, gestión de riesgos, roles y responsabilidades).</span></li>
+              <li><span class="bullet">✓</span><span>Nivel 2: Normas y procedimientos generales (control de accesos, incidentes, continuidad).</span></li>
+              <li><span class="bullet">✓</span><span>Nivel 3: Procedimientos específicos (backup y restauración, gestión de parches, onboarding/offboarding).</span></li>
+              <li><span class="bullet">✓</span><span>Nivel 4: Registros y evidencias (logs de acceso, incidentes, matrices de riesgo, evidencias de auditoría).</span></li>
+            </ul>
+          </div>
+          <div class="subcard">
+            <h4>Controles ISO 27001:2022 - ejemplos prácticos</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Control ISO</th><th>Enunciado</th><th>Ejemplo práctico aplicado</th></tr></thead>
+                <tbody>
+                  <tr><td>A.5.14</td><td>Transferencia de información</td><td>Reglas de envío: sin cifrar solo interno, etiqueta [CONFIDENCIAL], límite de destinatarios y validación previa del medio.</td></tr>
+                  <tr><td>A.5.23</td><td>Seguridad en el teletrabajo</td><td>Checklist diario: VPN activa, pantalla bloqueada, documentos físicos guardados, uso de equipo autorizado.</td></tr>
+                  <tr><td>A.5.24</td><td>Gestión de incidentes</td><td>Tiempos de respuesta definidos: crítico 15 min, alto 1 hora, medio 4 horas, bajo 24 horas.</td></tr>
+                  <tr><td>A.8.7</td><td>Protección contra malware</td><td>Política de USB: solo dispositivos aprobados, escaneo automático y registro de archivos copiados.</td></tr>
+                  <tr><td>A.8.16</td><td>Monitoreo de actividades</td><td>Alertas por 5 intentos fallidos, acceso fuera de horario y descarga masiva de archivos.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="subcard"><h4>Declaración de Aplicabilidad (SoA) - ejemplo</h4><p>Organización ejemplo: Fintech PagoSeguro S.A. Alcance: 50 empleados, sistema de pagos en AWS, app web + API. Total controles: 93. Aplicables: 87. No aplicables justificados: 6.</p></div>
+          <div class="subcard">
+            <h4>Ejemplos de evidencia de cumplimiento</h4>
+            <ul class="clean">
+              <li><span class="bullet">✓</span><span>Gestión de sesiones: GPO de cierre automático por inactividad, capturas de política y logs de 30 días.</span></li>
+              <li><span class="bullet">✓</span><span>Registro de eventos: CloudTrail habilitado, logs centralizados en SIEM y evidencia de eventos bloqueados por política.</span></li>
+              <li><span class="bullet">✓</span><span>Revisión de excepciones: lista formal de excepciones con aprobación y fecha de revisión.</span></li>
+            </ul>
+          </div>
+          <div class="framework-example"><strong>Ejemplo aplicado:</strong> Una fintech mantiene políticas aprobadas por gerencia, procedimientos operativos, evidencias de cumplimiento y una SoA actualizada para auditorías y mejora continua.</div>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div>
+            <h3>NIST CSF 2.0 - Ejemplos aplicados</h3>
+            <p class="small-text">Uso práctico de las seis funciones del NIST CSF 2.0 para traducir ciberseguridad en gobierno, operación y mejora continua.</p>
+          </div>
+          <span>⌄</span>
+        </summary>
+        <div class="details-body">
+          <div class="subcard">
+            <h4>Las 6 funciones core</h4>
+            <ul class="clean">
+              <li><span class="bullet">✓</span><span>Govern: contexto, estrategia, política, supervisión y gestión del riesgo.</span></li>
+              <li><span class="bullet">✓</span><span>Identify: activos, procesos, datos, dependencias y exposición.</span></li>
+              <li><span class="bullet">✓</span><span>Protect: salvaguardas preventivas, IAM, protección de datos, parches.</span></li>
+              <li><span class="bullet">✓</span><span>Detect: monitoreo, correlación, análisis de eventos y alertas.</span></li>
+              <li><span class="bullet">✓</span><span>Respond: contención, comunicación, análisis y coordinación.</span></li>
+              <li><span class="bullet">✓</span><span>Recover: restauración, continuidad y mejora posterior al incidente.</span></li>
+            </ul>
+          </div>
+          <div class="subcard">
+            <h4>Ejemplos por función</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Función</th><th>Práctica</th><th>Ejemplo aplicado</th></tr></thead>
+                <tbody>
+                  <tr><td>Govern</td><td>Políticas y comité de riesgo</td><td>El CISO presenta semanalmente top riesgos, estado de mitigación y decisiones pendientes a comité ejecutivo.</td></tr>
+                  <tr><td>Identify</td><td>Inventario y clasificación</td><td>CMDB actualizada, activos críticos etiquetados y mapa de flujo de datos app → API → DB → backup.</td></tr>
+                  <tr><td>Protect</td><td>Accesos y parches</td><td>SSO + MFA, cifrado de disco, parcheo crítico en menos de 7 días y revisión de roles trimestral.</td></tr>
+                  <tr><td>Detect</td><td>SIEM y reglas de correlación</td><td>Wazuh procesa eventos, correlaciona accesos anómalos y genera alertas por comportamiento sospechoso.</td></tr>
+                  <tr><td>Respond</td><td>Playbooks</td><td>Playbook de phishing con pasos de reporte, análisis, bloqueo, reseteo y lecciones aprendidas.</td></tr>
+                  <tr><td>Recover</td><td>Pruebas de recuperación</td><td>Ejercicio de mesa ante ransomware validando backup, RTO, RPO y comunicación a clientes.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="framework-example"><strong>Ejemplo aplicado:</strong> Una organización usa NIST CSF 2.0 como marco de madurez para conectar dirección, TI, SOC y responsables del negocio en un mismo lenguaje de riesgo.</div>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div>
+            <h3>Gestión de Riesgos de Seguridad - Ejemplos aplicados</h3>
+            <p class="small-text">Modelo simplificado basado en ISO 31000 / NIST 800-30 con ciclo, matriz de calor, tratamiento y apetito de riesgo.</p>
+          </div>
+          <span>⌄</span>
+        </summary>
+        <div class="details-body">
+          <div class="subcard">
+            <h4>Ciclo de gestión de riesgos</h4>
+            <ul class="clean">
+              <li><span class="bullet">✓</span><span>1. Contexto: activos, criterios de riesgo, procesos y stakeholders.</span></li>
+              <li><span class="bullet">✓</span><span>2. Identificación: qué puede salir mal y cómo podría ocurrir.</span></li>
+              <li><span class="bullet">✓</span><span>3. Análisis: probabilidad e impacto.</span></li>
+              <li><span class="bullet">✓</span><span>4. Evaluación: comparación contra apetito de riesgo.</span></li>
+              <li><span class="bullet">✓</span><span>5. Tratamiento: mitigar, transferir, aceptar o evitar.</span></li>
+              <li><span class="bullet">✓</span><span>6. Monitoreo y revisión: actualización periódica y seguimiento.</span></li>
+            </ul>
+          </div>
+          <div class="subcard">
+            <h4>Ejemplos de riesgos</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>ID</th><th>Riesgo</th><th>Prob.</th><th>Impacto</th><th>Nivel</th><th>Tratamiento</th></tr></thead>
+                <tbody>
+                  <tr><td>R-001</td><td>SQL Injection en API de pagos</td><td>Alta</td><td>Catastrófico</td><td>Crítico</td><td>Consultas parametrizadas, SAST en pipeline y WAF.</td></tr>
+                  <tr><td>R-002</td><td>Ransomware en servidores críticos</td><td>Media</td><td>Catastrófico</td><td>Crítico</td><td>Backups inmutables, segmentación y EDR.</td></tr>
+                  <tr><td>R-003</td><td>Dependencia con CVE crítico no parcheado</td><td>Alta</td><td>Mayor</td><td>Crítico</td><td>SCA automático y política de bloqueo.</td></tr>
+                  <tr><td>R-007</td><td>Phishing exitoso a empleado</td><td>Alta</td><td>Moderado</td><td>Medio</td><td>Simulaciones mensuales, MFA y concienciación.</td></tr>
+                  <tr><td>R-009</td><td>Incumplimiento PCI-DSS</td><td>Media</td><td>Catastrófico</td><td>Crítico</td><td>Auditorías trimestrales y control de evidencias.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="subcard"><h4>Plan de tratamiento - ejemplo</h4><p>Riesgo R-001: SQL Injection en endpoint de pagos. Dueño: líder de desarrollo API. Acciones: consultas parametrizadas, SAST por commit, WAF y pentest posterior. Riesgo residual esperado: moderado.</p></div>
+          <div class="subcard">
+            <h4>Apetito de riesgo - ejemplo ejecutivo</h4>
+            <ul class="clean">
+              <li><span class="bullet">✓</span><span>No se aceptan riesgos catastróficos relacionados con datos de clientes sin aprobación explícita de dirección.</span></li>
+              <li><span class="bullet">✓</span><span>Incumplimiento regulatorio con probabilidad alta no es aceptable.</span></li>
+              <li><span class="bullet">✓</span><span>Falsos positivos hasta 15% pueden tolerarse en fase inicial de madurez si existe plan de ajuste.</span></li>
+              <li><span class="bullet">✓</span><span>Proyectos sin análisis de riesgo solo pueden aceptarse con excepción formal aprobada.</span></li>
+            </ul>
+          </div>
+          <div class="framework-example"><strong>Ejemplo aplicado:</strong> El comité de seguridad revisa mensualmente la matriz de riesgos, prioriza los riesgos en zona roja y hace seguimiento a responsables, fechas y riesgo residual.</div>
+        </div>
+      </details>
+    </section>
+
+    <section id="riesgos" class="section">
+      <div class="section-head">
+        <h2>Ejemplos de riesgos de seguridad</h2>
+        <span class="tag amber">Matriz y tratamiento simplificado</span>
+      </div>
+      <div class="table-wrap card" style="padding:0;">
+        <table>
+          <thead><tr><th>Riesgo</th><th>Probabilidad</th><th>Impacto</th><th>Tratamiento sugerido</th></tr></thead>
+          <tbody>
+            <tr><td>SQL Injection en API de pagos</td><td>Alta</td><td>Catastrófico</td><td>Consultas parametrizadas, SAST en pipeline, WAF, pentest y validación de código seguro.</td></tr>
+            <tr><td>Ransomware en servidores críticos</td><td>Media</td><td>Catastrófico</td><td>Backups inmutables, segmentación, EDR, hardening y pruebas regulares de restauración.</td></tr>
+            <tr><td>Dependencia con CVE crítico no parcheado</td><td>Alta</td><td>Mayor</td><td>SCA automático, bloqueo de build, SBOM y actualización prioritaria de dependencias.</td></tr>
+            <tr><td>Phishing exitoso a empleado</td><td>Alta</td><td>Moderado</td><td>MFA, simulaciones mensuales, concienciación, filtrado de correo y monitoreo de accesos.</td></tr>
+            <tr><td>Incumplimiento PCI-DSS</td><td>Media</td><td>Catastrófico</td><td>Auditorías trimestrales, control de evidencias, revisión de brechas y plan formal de remediación.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Cómo leer estos riesgos</h3>
+        <ul class="clean">
+          <li><span class="arrow">1.</span><span><strong>Probabilidad:</strong> qué tan factible es que ocurra el evento adverso.</span></li>
+          <li><span class="arrow">2.</span><span><strong>Impacto:</strong> efecto en operación, cumplimiento, reputación o datos sensibles.</span></li>
+          <li><span class="arrow">3.</span><span><strong>Tratamiento:</strong> mitigar, transferir, aceptar o evitar según apetito de riesgo.</span></li>
+          <li><span class="arrow">4.</span><span><strong>Seguimiento:</strong> cada riesgo debe tener dueño, fecha de revisión y evidencia de avance.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="pilares" class="section">
+      <div class="section-head">
+        <h2>Los cuatro pilares: CISO, SOC, TI y Auditoría</h2>
+        <span class="tag purple">Gobierno + operación + aseguramiento</span>
+      </div>
+      <div class="grid-roles">
+        <div class="card role-card">
+          <div class="section-head" style="margin-bottom:0;">
+            <h3>CISO</h3>
+            <span class="tag gray">Gobierno, estrategia y riesgo</span>
+          </div>
+          <ul class="clean">
+            <li><span class="arrow">▹</span><span>Definir la estrategia de seguridad alineada con el negocio.</span></li>
+            <li><span class="arrow">▹</span><span>Aprobar políticas, estándares y excepciones relevantes.</span></li>
+            <li><span class="arrow">▹</span><span>Reportar al directorio el estado de riesgos, cumplimiento y madurez.</span></li>
+            <li><span class="arrow">▹</span><span>Gestionar presupuesto y priorización de iniciativas de seguridad.</span></li>
+            <li><span class="arrow">▹</span><span>Liderar comité de seguridad y aceptar o escalar riesgos críticos.</span></li>
+          </ul>
+          <div class="example"><strong>Ejemplo aplicado:</strong> Cada martes el CISO presenta al comité ejecutivo el top 5 de riesgos activos, estado de mitigación, brechas regulatorias y acciones requeridas para zona roja.</div>
+          <div class="small-text" style="margin-top:12px;">Indicadores típicos: riesgos críticos residuales, cumplimiento regulatorio, incidentes críticos abiertos, ejecución presupuestaria y estado de auditorías.</div>
+        </div>
+
+        <div class="card role-card">
+          <div class="section-head" style="margin-bottom:0;">
+            <h3>SOC / SecOps</h3>
+            <span class="tag gray">Monitoreo, detección y respuesta</span>
+          </div>
+          <ul class="clean">
+            <li><span class="arrow">▹</span><span>Monitorear eventos, alertas y telemetría 24/7.</span></li>
+            <li><span class="arrow">▹</span><span>Clasificar, investigar y escalar incidentes.</span></li>
+            <li><span class="arrow">▹</span><span>Mantener reglas de correlación, casos de uso y playbooks.</span></li>
+            <li><span class="arrow">▹</span><span>Realizar threat hunting y mejorar cobertura de detección.</span></li>
+            <li><span class="arrow">▹</span><span>Coordinar con TI, Legal y Comunicaciones cuando el incidente lo exija.</span></li>
+          </ul>
+          <div class="example"><strong>Ejemplo aplicado:</strong> El SOC detecta autenticaciones anómalas en VPN, aísla el endpoint afectado, resetea credenciales y activa playbook de compromiso de cuenta.</div>
+          <div class="small-text" style="margin-top:12px;">Métricas típicas: MTTD &lt; 15 min, MTTR &lt; 1 hora en incidentes críticos, tasa de falsos positivos y volumen diario de alertas investigadas.</div>
+        </div>
+
+        <div class="card role-card">
+          <div class="section-head" style="margin-bottom:0;">
+            <h3>TI / Infraestructura</h3>
+            <span class="tag gray">Implementación y operación de controles</span>
+          </div>
+          <ul class="clean">
+            <li><span class="arrow">▹</span><span>Aplicar hardening, parches, backups y segmentación.</span></li>
+            <li><span class="arrow">▹</span><span>Operar infraestructura segura, estable y trazable.</span></li>
+            <li><span class="arrow">▹</span><span>Implementar controles aprobados por Seguridad.</span></li>
+            <li><span class="arrow">▹</span><span>Ejecutar remediaciones técnicas derivadas de SOC, riesgo o auditoría.</span></li>
+            <li><span class="arrow">▹</span><span>Mantener evidencia operativa de configuraciones, cambios y pruebas.</span></li>
+          </ul>
+          <div class="example"><strong>Ejemplo aplicado:</strong> TI despliega MFA, cifra portátiles, aplica parches críticos en menos de 7 días, opera backups cifrados y documenta pruebas de restauración.</div>
+          <div class="small-text" style="margin-top:12px;">Procesos clave: gestión de cambios, parcheo, administración de respaldos, hardening de servidores, operación de VPN/ZTNA y control de configuraciones.</div>
+        </div>
+
+        <div class="card role-card">
+          <div class="section-head" style="margin-bottom:0;">
+            <h3>Auditoría / GRC</h3>
+            <span class="tag gray">Evaluación independiente, riesgo y cumplimiento</span>
+          </div>
+          <ul class="clean">
+            <li><span class="arrow">▹</span><span>Verificar cumplimiento de políticas, procedimientos y controles.</span></li>
+            <li><span class="arrow">▹</span><span>Evaluar diseño y efectividad operativa de controles.</span></li>
+            <li><span class="arrow">▹</span><span>Mantener matriz de riesgos, seguimiento de hallazgos y evidencias.</span></li>
+            <li><span class="arrow">▹</span><span>Coordinar auditorías internas y externas.</span></li>
+            <li><span class="arrow">▹</span><span>Emitir observaciones, recomendaciones y seguimiento formal.</span></li>
+          </ul>
+          <div class="example"><strong>Ejemplo aplicado:</strong> Auditoría revisa si los accesos privilegiados fueron aprobados, registrados, recertificados y trazables; además valida evidencias de backup, monitoreo y gestión de incidentes.</div>
+          <div class="small-text" style="margin-top:12px;">Artefactos comunes: matriz de riesgos, SoA, evidencias de controles, actas de comité, registros de excepciones y reportes de hallazgos.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid-2 section">
+      <div class="card">
+        <h3>Ejemplo integrado de gobierno</h3>
+        <p class="small-text">Una organización define una política corporativa de seguridad aprobada por dirección, alinea sus controles a ISO 27001, usa NIST CSF 2.0 para madurez y priorización, mantiene un registro de riesgos revisado periódicamente y asigna responsabilidades claras entre CISO, SOC, TI y Auditoría / GRC.</p>
+      </div>
+      <div class="card">
+        <h3>Objetivo de esta página</h3>
+        <ul class="clean">
+          <li><span class="arrow">1.</span><span>Explicar las políticas e identificar controles obligatorios y excepciones.</span></li>
+          <li><span class="arrow">2.</span><span>Comparar ISO 27001, NIST CSF 2.0 y gestión de riesgos según objetivo, evidencia y aplicación.</span></li>
+          <li><span class="arrow">3.</span><span>Usar la matriz de riesgos para priorizar tratamiento y justificar inversiones.</span></li>
+          <li><span class="arrow">4.</span><span>Discutir cómo interactúan CISO, SOC, TI y Auditoría ante un incidente, hallazgo o auditoría.</span></li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
